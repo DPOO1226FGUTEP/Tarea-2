@@ -37,7 +37,6 @@ public class SandboxArreglos
     }
 
     /**
-     * [TASK 1]
      * Retorna una copia del arreglo de enteros, es decir un nuevo arreglo del mismo tamaño que contiene copias de los valores del arreglo original
      * @return Una copia del arreglo de enteros
      */
@@ -66,19 +65,22 @@ public class SandboxArreglos
      * Retorna la cantidad de valores en el arreglo de enteros
      * @return
      */
-    public int getCantidadEnteros(int[] arregloInt)
+    public int getCantidadEnteros(int[] inArray)
     {
-        return -1;
+        int qtty = inArray.length;
+        return qtty;
     }
 
     /**
      * Retorna la cantidad de valores en el arreglo de cadenas
      * @return
      */
-    public int getCantidadCadenas( )
+    public int getCantidadCadenas(String[] inArray)
     {
-        return -1;
+        int qtty = inArray.length;
+        return qtty;
     }
+
 
     /**
      * Agrega un nuevo valor al final del arreglo. Es decir que este método siempre debería aumentar en 1 la capacidad del arreglo.
@@ -87,7 +89,13 @@ public class SandboxArreglos
      */
     public void agregarEntero( int entero )
     {
-
+        int[] bigerrArr = new int[arregloEnteros.length + 1];
+        for (int i = 0; i < arregloEnteros.length; i++) {
+        	bigerrArr[i] = arregloEnteros[i];
+        }
+        
+        bigerrArr[bigerrArr.length - 1] = entero;
+        arregloEnteros = bigerrArr; // Meter el nuevo en el viejo
     }
 
     /**
@@ -97,7 +105,13 @@ public class SandboxArreglos
      */
     public void agregarCadena( String cadena )
     {
-
+    	String[] bigerrArr = new String[arregloCadenas.length + 1];
+        for (int i = 0; i < arregloCadenas.length; i++) {
+        	bigerrArr[i] = arregloCadenas[i];
+        }
+        
+        bigerrArr[bigerrArr.length - 1] = cadena;
+        arregloCadenas = bigerrArr; // Meter el nuevo en el viejo
     }
 
     /**
@@ -106,7 +120,16 @@ public class SandboxArreglos
      */
     public void eliminarEntero( int valor )
     {
-
+    	int valorAct;
+    	// Hacer la copia pero sólo metiendo NOT valor
+        int[] newArr = new int[arregloEnteros.length];
+        for (int i = 0; i < arregloEnteros.length; i++) {
+        	valorAct = arregloEnteros[i];
+        	if (valorAct != valor) {
+        		newArr[i] = arregloEnteros[i];
+        	}
+        }
+        arregloEnteros = newArr; // Meter el nuevo en el viejo
     }
 
     /**
@@ -115,7 +138,16 @@ public class SandboxArreglos
      */
     public void eliminarCadena( String cadena )
     {
-
+    	String valorActStr;
+    	// Hacer la copia pero sólo metiendo NOT valor
+        String[] newArr = new String[arregloCadenas.length];
+        for (int i = 0; i < arregloCadenas.length; i++) {
+        	valorActStr = arregloCadenas[i];
+        	if (valorActStr != cadena) {
+        		newArr[i] = arregloCadenas[i];
+        	}
+        }
+        arregloCadenas = newArr; // Meter el nuevo en el viejo
     }
 
     /**
@@ -127,8 +159,42 @@ public class SandboxArreglos
      */
     public void insertarEntero( int entero, int posicion )
     {
-
-    }
+    	int tamanioArreglo = getCantidadEnteros(arregloEnteros);
+    	
+		if (posicion < 0) {
+			posicion = 0;
+		}
+	
+    	if (posicion > tamanioArreglo){
+    		agregarEntero(entero);
+    	}
+    	
+    	else {
+    		// Dividir la lista en dos hasta antes de i y despues de i
+            int[]beforeI = new int[posicion + 1];
+            int[]afterI = new int[arregloEnteros.length - posicion];
+            for(int i = 0; i < posicion; i++) {
+            	beforeI[i] = arregloEnteros[i];
+            }
+            for(int i = posicion; i < arregloEnteros.length; i++) {
+            	afterI[i] = arregloEnteros[i];
+            	}
+            // Ahora tenemos dos listas una antes y una despúes
+            // Crear una lista final que va a mezclar todas:
+            int[]totalizadora = new int[arregloEnteros.length+ 1];
+            for(int i = 0; i < posicion ; i++) {
+            	totalizadora[i] = beforeI[i];
+            }
+            // Agregar entero en posicion
+            totalizadora[posicion] = entero;
+            // Agregar el resto:
+            for(int i = posicion + 1; i < afterI.length; i++) {
+            	totalizadora[i] = afterI[i];
+            }    
+        	// Asignación
+    		arregloEnteros = totalizadora;
+    	}
+	}
 
     /**
      * Elimina un valor del arreglo de enteros dada su posición.
