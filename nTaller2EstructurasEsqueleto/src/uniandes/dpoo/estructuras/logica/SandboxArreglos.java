@@ -157,54 +157,67 @@ public class SandboxArreglos
      * @param posicion La posición donde debe quedar el nuevo valor en el arreglo aumentado. Si la posición es menor a 0, se inserta el valor en la primera posición. Si la
      *        posición es mayor que el tamaño del arreglo, se inserta el valor en la última posición.
      */
-    public void insertarEntero( int entero, int posicion )
-    {
-    	int tamanioArreglo = getCantidadEnteros(arregloEnteros);
-    	
-		if (posicion < 0) {
-			posicion = 0;
-		}
-	
-    	if (posicion > tamanioArreglo){
-    		agregarEntero(entero);
-    	}
-    	
-    	else {
-    		// Dividir la lista en dos hasta antes de i y despues de i
-            int[]beforeI = new int[posicion + 1];
-            int[]afterI = new int[arregloEnteros.length - posicion];
-            for(int i = 0; i < posicion; i++) {
-            	beforeI[i] = arregloEnteros[i];
+    public void insertarEntero(int entero, int posicion) {
+        int tamanioArreglo = getCantidadEnteros(arregloEnteros);
+
+        if (posicion < 0) {
+            posicion = 0;
+        }
+
+        if (posicion > tamanioArreglo) {
+            agregarEntero(entero); // Esta función agrega al final del arreglo
+        } else {
+            // Crear una nueva lista con espacio para el nuevo entero
+            int[] totalizadora = new int[arregloEnteros.length + 1];
+
+            // Copiar los elementos antes de la posición
+            for (int i = 0; i < posicion; i++) {
+                totalizadora[i] = arregloEnteros[i];
             }
-            for(int i = posicion; i < arregloEnteros.length; i++) {
-            	afterI[i] = arregloEnteros[i];
-            	}
-            // Ahora tenemos dos listas una antes y una despúes
-            // Crear una lista final que va a mezclar todas:
-            int[]totalizadora = new int[arregloEnteros.length+ 1];
-            for(int i = 0; i < posicion ; i++) {
-            	totalizadora[i] = beforeI[i];
-            }
-            // Agregar entero en posicion
+
+            // Insertar el nuevo entero en la posición
             totalizadora[posicion] = entero;
-            // Agregar el resto:
-            for(int i = posicion + 1; i < afterI.length; i++) {
-            	totalizadora[i] = afterI[i];
-            }    
-        	// Asignación
-    		arregloEnteros = totalizadora;
-    	}
-	}
+
+            // Copiar el resto de los elementos después de la posición
+            for (int i = posicion; i < arregloEnteros.length; i++) {
+                totalizadora[i + 1] = arregloEnteros[i];
+            }
+
+            // Asignar la nueva lista al arreglo original
+            arregloEnteros = totalizadora;
+        }
+    }
+
 
     /**
      * Elimina un valor del arreglo de enteros dada su posición.
      * @param posicion La posición donde está el elemento que debe ser eliminado. Si el parámetro posicion no corresponde a ninguna posición del arreglo de enteros, el método
      *        no debe hacer nada.
      */
-    public void eliminarEnteroPorPosicion( int posicion )
-    {
+    public void eliminarEnteroPorPosicion( int posicion ) {
+        int maxPos = arregloEnteros.length;
+        boolean isFucked = false;
+        int[] totalizadora = new int[arregloEnteros.length - 1];
 
+        // Hacer OutOfBounds Check
+        if (posicion >= maxPos || posicion < 0) {
+            isFucked = true;
+        }
+
+        if (!isFucked) {
+        	int j = 0;
+            for (int i = 0; i < maxPos; i++) {
+                if (i != posicion) {
+                    totalizadora[j] = arregloEnteros[i];
+                    j++;
+                }
+            }
+
+            // Asignar la nueva lista al arreglo original
+            arregloEnteros = totalizadora;
+        }
     }
+
 
     /**
      * Reinicia el arreglo de enteros con los valores contenidos en el arreglo del parámetro 'valores' truncados.
@@ -214,7 +227,15 @@ public class SandboxArreglos
      */
     public void reiniciarArregloEnteros( double[] valores )
     {
-
+    int[] totalizadora = new int[valores.length];
+    int maxPos = valores.length;
+    for (int i = 0; i < maxPos; i++) {
+    	Double decimal = valores[i];
+    	int current = decimal.intValue();
+    	totalizadora[i] = current;
+    	}
+    // Asignar la nueva lista al arreglo original
+    arregloEnteros = totalizadora;
     }
 
     /**
@@ -225,7 +246,14 @@ public class SandboxArreglos
      */
     public void reiniciarArregloCadenas( Object[] objetos )
     {
-
+    String[] totalizadora = new String[objetos.length];
+    int maxPos = objetos.length;
+    for (int i = 0; i < maxPos; i++) {
+    	Object something = objetos[i];
+    	totalizadora[i] = something.toString();
+    	}
+    // Asignar la nueva lista al arreglo original
+    arregloCadenas = totalizadora;
     }
 
     /**
@@ -235,7 +263,13 @@ public class SandboxArreglos
      */
     public void volverPositivos( )
     {
-
+    	for (int i = 0; i < arregloEnteros.length; i++) {
+    		int current = arregloEnteros[i];
+    		if (current<0) {
+    			current = current * -1;
+    			arregloEnteros[i] = current;
+    		}
+    	}
     }
 
     /**
