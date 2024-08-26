@@ -277,7 +277,28 @@ public class SandboxArreglos
      */
     public void organizarEnteros( )
     {
-
+    	int [] organized = new int[arregloEnteros.length];
+    	boolean finished = false;
+    	int orgPos = 0;
+    	while (!finished) {
+    		int minPos = 0;
+    		double min = Double.POSITIVE_INFINITY;
+    		for (int i = 0; i < arregloEnteros.length; i++) {
+    			int value = arregloEnteros[i];
+    			if (value <= min) {
+    				min = value;
+    				minPos = i;
+    			}
+    	
+  
+    	organized[orgPos] = arregloEnteros[minPos];
+    	orgPos++;
+    	eliminarEnteroPorPosicion(minPos);
+    	
+    	if (arregloEnteros.length == 0) {
+    		finished = true;			}
+    		} 
+    	}
     }
 
     /**
