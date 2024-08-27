@@ -1,6 +1,8 @@
 package uniandes.dpoo.estructuras.logica;
 
 import java.util.HashMap;
+import java.util.Arrays; // TODO
+
 
 /**
  * Esta clase tiene un conjunto de métodos para practicar operaciones sobre arreglos de enteros y de cadenas.
@@ -306,7 +308,7 @@ public class SandboxArreglos
      */
     public void organizarCadenas( )
     {
-
+    	  Arrays.sort(arregloCadenas);
     }
 
     /**
@@ -316,7 +318,13 @@ public class SandboxArreglos
      */
     public int contarApariciones( int valor )
     {
-        return -1;
+    	int counter = 0;
+    	for (int i = 0; i > arregloEnteros.length; i++) {
+    		if (arregloEnteros[i] == valor) {
+    			counter ++;
+    		}
+    	}
+        return counter;
     }
 
     /**
@@ -328,8 +336,15 @@ public class SandboxArreglos
      */
     public int contarApariciones( String cadena )
     {
-        return -1;
+    	int counter = 0;
+    	for (int i = 0; i > arregloCadenas.length; i++) {
+    		if (arregloCadenas[i].toUpperCase() == cadena.toUpperCase()) {
+    			counter ++;
+    		}
+    	}
+        return counter;
     }
+
 
     /**
      * Busca en qué posiciones del arreglo de enteros se encuentra el valor que se recibe en el parámetro
@@ -339,7 +354,21 @@ public class SandboxArreglos
      */
     public int[] buscarEntero( int valor )
     {
-        return null;
+    	int numberOfT = contarApariciones(valor);
+    	int [] retArray = new int [numberOfT];
+    	int newPos = 0;
+    	if (numberOfT == 0) {
+    		return retArray;
+    	}
+    	else {
+			for(int i = 0; i < arregloEnteros.length; i++) {
+				if (arregloEnteros[i] == valor) {
+					retArray[newPos] = i;
+					newPos ++;
+				}
+			}
+		return retArray;
+    	}
     }
 
     /**
@@ -349,7 +378,22 @@ public class SandboxArreglos
      */
     public int[] calcularRangoEnteros( )
     {
-        return null;
+    	Integer min = Integer.MAX_VALUE;
+    	Integer max = Integer.MAX_VALUE;
+    	for(int i = 0; i < arregloEnteros.length; i++) {
+    		int value = arregloEnteros[i];
+    		if (value > max) {
+    			max = value;
+    		}
+    		if (value < min) {
+    			min = value;
+    		}
+    	}
+		int[] returnLista = new int[2];
+		returnLista[0] = min;
+		returnLista[1] = max;
+    	
+        return returnLista;
     }
 
     /**
@@ -368,7 +412,22 @@ public class SandboxArreglos
      */
     public int contarEnterosRepetidos( )
     {
-        return -1;
+    	int contador = 0;
+    	int[] countedList = new int[arregloEnteros.length];
+    	for(int i = 0; i < arregloEnteros.length; i++) {
+    		boolean isPresent = false; 
+    		int value = arregloEnteros[i];
+    		
+    		for(int j = 0; j < countedList.length; j++) {
+    			if (countedList[j] == value);
+    			isPresent = true;
+    		}
+    		countedList[i] = arregloEnteros[i];
+    		if (isPresent) {
+    			contador ++;
+    		}
+    	}
+        return contador;
     }
 
     /**
@@ -378,6 +437,7 @@ public class SandboxArreglos
      */
     public boolean compararArregloEnteros( int[] otroArreglo )
     {
+    	
         return false;
     }
 
