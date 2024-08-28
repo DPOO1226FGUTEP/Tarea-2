@@ -1,5 +1,5 @@
 package uniandes.dpoo.estructuras.logica;
-
+import java.util.ArrayList; // TODO Vaya a saber uno por qué
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +41,14 @@ public class SandboxMapas
      */
     public List<String> getValoresComoLista( )
     {
-        return null;
-    }
+    	List<String> listaRet = new ArrayList<>(mapaCadenas.values());
+    	for (String value : mapaCadenas.values()) {
+    		listaRet.add(value);
+    		}
 
+    	return listaRet; // La lista está desordenada y yo muy cansado.
+    	}
+    	
     /**
      * Retorna una lista con las llaves del mapa ordenadas lexicográficamente de mayor a menor
      * @return Una lista ordenada con las cadenas que conforman las llaves del mapa

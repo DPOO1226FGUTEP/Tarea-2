@@ -39,7 +39,7 @@ public class SandboxConjuntos
      */
     public List<String> getCadenasComoLista( )
     {
-        return null;
+    	return new ArrayList<>(arbolCadenas);
     }
 
     /**
